@@ -150,7 +150,7 @@ onMounted(async () => {
   try {
     await store.dispatch('teachers/getbyid', route.params.id);
     setTeacherInfo();
-    document.title = `${teacher.value.firstName} ${teacher.value.lastName} - digi-edu`;
+    document.title = `${teacher.value.firstName} ${teacher.value.lastName} - digi-storage`;
   } catch (error: any) {
     const msg = error.response.data.error || 'Ha ocurrido un error';
     store.commit('notification/addNotification', {

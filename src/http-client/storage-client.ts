@@ -3,10 +3,10 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { camelToSnake } from '@/utils/index';
 import { decode } from '@/utils/custom-enc-dec';
 
-const DG_EDU = process.env.VUE_APP_URL_DG_EDU;
+const DG_STORAGE = process.env.VUE_APP_URL_DG_STORAGE;
 
 const baseHttpClient = axios.create({
-  baseURL: DG_EDU,
+  baseURL: DG_STORAGE,
   headers: {
     'Content-Type': 'application/json',
   },

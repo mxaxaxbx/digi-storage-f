@@ -1,4 +1,4 @@
-# digi-edu
+# digi-storage
 
 ## Project setup
 ```

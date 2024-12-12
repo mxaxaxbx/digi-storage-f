@@ -10,7 +10,7 @@
     <button @click="toggleSidebar">
       <i class="fas fa-bars"></i>
     </button>
-    <router-link to="/" class="text-2xl font-bold text-orange-500">edu</router-link>
+    <router-link to="/" class="text-2xl font-bold text-purple-500">storage</router-link>
     <div class="shrink w-5/6"></div>
 
     <Dropdown
@@ -41,7 +41,7 @@ const loading = ref<boolean>(false);
 
 const { VUE_APP_DIGI_USERS_F } = process.env;
 
-const usersLink = ref(`${VUE_APP_DIGI_USERS_F}/auth/login?app=edu`);
+const usersLink = ref(`${VUE_APP_DIGI_USERS_F}/auth/login?app=storage`);
 
 const isAuthenticated = computed(() => store.getters['auth/isAuthenticated']);
 const user = computed<UserI>(() => store.getters['auth/user']);

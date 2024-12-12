@@ -1,6 +1,6 @@
 import { ActionTree, ActionContext } from 'vuex';
 
-import { eduClient } from '@/http-client';
+import { storageClient } from '@/http-client';
 import { camelToSnake, snakeToCamel } from '@/utils';
 
 import { RootStateI, PaginationI } from '../state';
@@ -26,7 +26,7 @@ export const actions: ActionTree<CoursesStateI, RootStateI> = {
         }
       });
     }
-    const { data } = await eduClient.get(`/api/courses/filter?${params.toString()}`);
+    const { data } = await storageClient.get(`/api/courses/filter?${params.toString()}`);
     context.commit('setCoursesResult', snakeToCamel(data));
     return data;
   },
@@ -34,14 +34,14 @@ export const actions: ActionTree<CoursesStateI, RootStateI> = {
     context: ActionContext<CoursesStateI, RootStateI>,
     payload: CourseI,
   ): Promise<void> {
-    const { data } = await eduClient.post('/api/courses/add', camelToSnake(payload));
+    const { data } = await storageClient.post('/api/courses/add', camelToSnake(payload));
     return data;
   },
   async get(
     context: ActionContext<CoursesStateI, RootStateI>,
     payload: number,
   ): Promise<void> {
-    const { data } = await eduClient.get(`/api/courses/get/${payload}`);
+    const { data } = await storageClient.get(`/api/courses/get/${payload}`);
     context.commit('setCourse', snakeToCamel(data));
     return data;
   },

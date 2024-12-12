@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white p-4">
-    <h2 class="text-lg font-semibold mb-4 text-orange-500">
+    <h2 class="text-lg font-semibold mb-4 text-purple-500">
       {{ course.title }}
     </h2>
     <!-- line -->
@@ -58,7 +58,7 @@ const course = computed<CourseI>(() => store.state.courses.course);
 const loading = ref(false);
 
 function setCourseTitle() {
-  document.title = `${course.value.title} - digi-edu`;
+  document.title = `${course.value.title} - digi-storage`;
 }
 
 async function getCourse() {

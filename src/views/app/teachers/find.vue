@@ -96,13 +96,13 @@
             Cancelar
           </router-link>
           <button type="submit" class="
-              bg-orange-500
+              bg-purple-500
               text-white
               text-sm
               font-semibold
               rounded-lg
               focus:outline-none
-              focus:ring-2 focus:ring-orange-500
+              focus:ring-2 focus:ring-purple-500
               focus:ring-offset-2
               mt-8
               px-4 py-2

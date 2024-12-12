@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white p-4">
-    <h2 class="text-lg font-semibold mb-4 text-orange-500"> Add Course </h2>
+    <h2 class="text-lg font-semibold mb-4 text-purple-500"> Add Course </h2>
     <!-- line -->
     <div class="bg-gray-200 h-0.5 w-full mb-4"></div>
     <!-- form -->
@@ -31,11 +31,11 @@
           @click="saveCourse"
           :disabled="loading"
           class="
-            bg-orange-500
+            bg-purple-500
             text-white
             px-4 py-2
             rounded
-            hover:bg-orange-600
+            hover:bg-purple-600
           "
         >
           <i v-if="loading" class="fas fa-spinner fa-spin"></i>

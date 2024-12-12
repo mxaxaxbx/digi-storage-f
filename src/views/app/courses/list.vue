@@ -67,7 +67,7 @@
         <!-- previous -->
         <router-link
           :to="getPaginatedLink('previous', Number(find.page))"
-          class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
+          class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
         >
           <i class="fas fa-chevron-left"></i>
         </router-link>
@@ -78,8 +78,8 @@
             v-if="
               Math.abs(page - currentPage) < 2 || page === 1 || page === coursesResults.totalPages
             "
-            class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
-            :class="page === currentPage ? 'bg-orange-700' : 'bg-orange-500'"
+            class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+            :class="page === currentPage ? 'bg-purple-700' : 'bg-purple-500'"
           >
             {{ page }}
           </router-link>
@@ -88,7 +88,7 @@
         <!-- next -->
         <router-link
           :to="getPaginatedLink('next', Number(find.page))"
-          class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
+          class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
         >
           <i class="fas fa-chevron-right"></i>
         </router-link>

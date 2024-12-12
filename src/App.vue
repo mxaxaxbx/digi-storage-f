@@ -34,7 +34,7 @@
     <!-- footer -->
     <footer class="bg-gray-800 text-white py-8">
       <div class="container mx-auto text-center">
-        <p>&copy; 2024 digi-edu. All rights reserved.</p>
+        <p>&copy; 2024 digi-storage. All rights reserved.</p>
       </div>
     </footer>
   </div>

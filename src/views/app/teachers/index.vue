@@ -8,10 +8,10 @@
       border border-gray-400
     "
   >
-    <h1 class="text-2xl font-semibold text-orange-900"> Docentes </h1>
+    <h1 class="text-2xl font-semibold text-purple-900"> Docentes </h1>
     <router-link
       to="/app/teachers/find"
-      class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
+      class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
     >
       <i class="fas fa-plus"></i>
       Agregar docente

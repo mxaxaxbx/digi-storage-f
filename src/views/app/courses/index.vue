@@ -10,7 +10,7 @@
   >
     <router-link
       to="/app/courses"
-      class="text-2xl font-semibold text-orange-900"
+      class="text-2xl font-semibold text-purple-900"
     >
       Cursos
     </router-link>
@@ -18,7 +18,7 @@
       v-validate-perm
       data-perm="courses/add"
       to="/app/courses/add"
-      class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
+      class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
     >
       <i class="fas fa-plus"></i>
       Agregar cursos

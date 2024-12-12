@@ -138,7 +138,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   // Set title
   if (to.meta.title) {
-    document.title = `${to.meta.title} - digi-edu`;
+    document.title = `${to.meta.title} - digi-storage`;
   }
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
@@ -146,7 +146,7 @@ router.beforeEach((to, from, next) => {
     // if not, redirect to login page.
     if (!localStorage.getItem('token')) {
       const { VUE_APP_DIGI_USERS_F } = process.env;
-      window.location.href = `${VUE_APP_DIGI_USERS_F}/auth/login?app=edu`;
+      window.location.href = `${VUE_APP_DIGI_USERS_F}/auth/login?app=storage`;
     } else {
       next();
     }
