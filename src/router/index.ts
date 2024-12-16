@@ -46,82 +46,23 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: 'Inicio',
         },
-        redirect: { name: 'app-courses' },
+        redirect: { name: 'app-files-list' },
       },
       {
-        path: 'teachers',
-        name: 'app-teachers',
-        component: () => import('../views/app/teachers/index.vue'),
-        children: [
-          {
-            path: '',
-            name: 'app-teachers-list',
-            component: () => import('../views/app/teachers/list.vue'),
-            meta: {
-              title: 'Docentes',
-            },
-          },
-          {
-            path: 'find',
-            name: 'app-teachers-find',
-            component: () => import('../views/app/teachers/find.vue'),
-            meta: {
-              title: 'Buscar docente',
-            },
-          },
-          {
-            path: 'new',
-            name: 'app-teachers-new',
-            component: () => import('../views/app/teachers/new.vue'),
-            meta: {
-              title: 'Nuevo docente',
-            },
-          },
-          {
-            path: ':id',
-            name: 'app-teachers-detail',
-            component: () => import('../views/app/teachers/detail.vue'),
-            meta: {
-              title: 'Detalle de docente',
-            },
-          },
-        ],
+        path: 'files',
+        name: 'app-files',
+        component: () => import('../views/app/files/index.vue'),
         meta: {
-          title: 'Docentes',
-          requiresAuth: true,
-        },
-      },
-      {
-        path: 'courses',
-        name: 'app-courses',
-        component: () => import('../views/app/courses/index.vue'),
-        meta: {
-          title: 'Cursos',
+          title: 'Archivos',
           requiresAuth: true,
         },
         children: [
           {
             path: '',
-            name: 'app-courses-list',
-            component: () => import('../views/app/courses/list.vue'),
+            name: 'app-files-list',
+            component: () => import('../views/app/files/list.vue'),
             meta: {
-              title: 'Cursos',
-            },
-          },
-          {
-            path: 'add',
-            name: 'app-courses-add',
-            component: () => import('../views/app/courses/add.vue'),
-            meta: {
-              title: 'Agregar curso',
-            },
-          },
-          {
-            path: ':id',
-            name: 'app-courses-detail',
-            component: () => import('../views/app/courses/detail.vue'),
-            meta: {
-              title: 'Detalle de curso',
+              title: 'Archivos',
             },
           },
         ],

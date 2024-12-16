@@ -10,7 +10,12 @@
     <button @click="toggleSidebar">
       <i class="fas fa-bars"></i>
     </button>
-    <router-link to="/" class="text-2xl font-bold text-purple-500">storage</router-link>
+    <router-link
+      :to="isAuthenticated ? '/app' : '/'"
+      class="text-2xl font-bold text-purple-500"
+    >
+      storage
+    </router-link>
     <div class="shrink w-5/6"></div>
 
     <Dropdown
