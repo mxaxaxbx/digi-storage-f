@@ -27,14 +27,14 @@
         <i class="fas fa-spinner fa-spin text-2xl"></i>
       </div>
       <!-- if not results -->
-      <div v-else-if="!coursesResults.data.length" class="flex justify-center items-center">
+      <div v-else-if="!results.data.length" class="flex justify-center items-center">
         <p class="text-gray-500">No hay resultados</p>
       </div>
       <!-- results -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <!-- results -->
         <div
-          v-for="course in coursesResults.data"
+          v-for="course in results.data"
           :key="course.id"
           class="border border-gray-200 rounded-lg p-4"
         >
@@ -61,7 +61,7 @@
       </div>
       <!-- pages if data -->
       <div
-        v-if="coursesResults.data.length > 0"
+        v-if="results.data.length > 0"
         class="flex space-x-1 justify-center items-center mt-5"
       >
         <!-- previous -->
@@ -72,11 +72,11 @@
           <i class="fas fa-chevron-left"></i>
         </router-link>
         <!-- pages only show 5 around the current page -->
-        <div v-for="page in coursesResults.totalPages" :key="page">
+        <div v-for="page in results.totalPages" :key="page">
           <router-link
             :to="getPaginatedLink('page', page)"
             v-if="
-              Math.abs(page - currentPage) < 2 || page === 1 || page === coursesResults.totalPages
+              Math.abs(page - currentPage) < 2 || page === 1 || page === results.totalPages
             "
             class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
             :class="page === currentPage ? 'bg-purple-700' : 'bg-purple-500'"
@@ -108,13 +108,13 @@ import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
 import { PaginationI } from '@/store/state';
-import { CoursesResultI } from '@/store/courses/state';
+import { FilesResultI } from '@/store/files/state';
 
 const store = useStore();
 const route = useRoute();
 const router = useRouter();
 
-const coursesResults = computed<CoursesResultI>(() => store.state.courses.coursesResult);
+const results = computed<FilesResultI>(() => store.state.files.result);
 
 const loading = ref(false);
 const find = ref<PaginationI>({
@@ -129,7 +129,7 @@ async function getData() {
   loading.value = true;
   try {
     currentPage.value = Number(route.query.page) || 1;
-    await store.dispatch('courses/filter', find.value);
+    await store.dispatch('files/filter', find.value);
   } catch (err: any) {
     const msg = err.response.data.error || 'Error al cargar los cursos';
     store.commit('notifications/addNotification', {
@@ -148,23 +148,13 @@ function getPaginatedLink(action: string, page?: number) {
       return `/app/courses?page=${Math.max(1, Number(find.value.page) - 1)}&query=${query}`;
     case 'next':
       return `/app/courses?page=${Math.min(
-        coursesResults.value.totalPages,
+        results.value.totalPages,
         Number(find.value.page) + 1,
       )}&query=${query}`;
     default:
       return `/app/courses?page=${page}&query=${query}`;
   }
 }
-
-// const hasPerm = (permission: string) => {
-//   // permission contains an string with the following format: 'resource/permission'
-//   // example: 'teachers/list
-//   const permSplit = permission.split('/');
-//   const [r] = permission.split('/');
-//   const p = permSplit.slice(1).join('/');
-//   return permissions.value
-//     .find((perm: PermissionsI) => perm.resourceName === r && perm.name === p);
-// };
 
 function search(ev: KeyboardEvent) {
   ev.preventDefault();

@@ -1,9 +1,10 @@
 import { createStore, Store } from 'vuex';
 
 import auth from './auth';
-import teachers from './teachers';
 import notifications from './notifications';
-import courses from './courses';
+// import teachers from './teachers';
+// import courses from './courses';
+import files from './files';
 
 import { state, RootStateI } from './state';
 import { mutations } from './mutations';
@@ -21,7 +22,8 @@ const store: Store<RootStateI> = createStore({
 
 store.registerModule('auth', auth);
 store.registerModule('notifications', notifications);
-store.registerModule('teachers', teachers);
-store.registerModule('courses', courses);
+// store.registerModule('teachers', teachers);
+// store.registerModule('courses', courses);
+store.registerModule('files', files);
 
 export default store;

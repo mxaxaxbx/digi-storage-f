@@ -9,10 +9,10 @@
     "
   >
     <router-link
-      to="/app/courses"
+      to="/app/files"
       class="text-2xl font-semibold text-purple-900"
     >
-      Cursos
+      Archivos
     </router-link>
     <router-link
       v-validate-perm
@@ -20,8 +20,9 @@
       to="/app/courses/add"
       class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
     >
-      <i class="fas fa-plus"></i>
-      Agregar cursos
+      <!-- upload file icon -->
+      <i class="fas fa-upload"></i>
+      Subir Archivo
     </router-link>
   </div>
   <router-view></router-view>
