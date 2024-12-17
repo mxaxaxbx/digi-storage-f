@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
+import { decode } from '@/utils/custom-enc-dec';
 import { camelToSnake } from '@/utils/index';
 
 const URL_DIGIUSERS = process.env.VUE_APP_URL_DG_USERS;
@@ -60,6 +61,14 @@ baseHttpClient.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) {
     modifiedConfig.headers.Authorization = `DGTK ${token}`;
+  }
+
+  const project = localStorage.getItem('project');
+  if (project) {
+    const { value } = decode(project) as any;
+    // get the project id. Could be 'ID' or 'id'
+    const projectId = value.ID || value.id;
+    modifiedConfig.headers['Dg-Businessid'] = projectId;
   }
 
   return modifiedConfig;

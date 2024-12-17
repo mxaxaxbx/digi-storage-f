@@ -14,8 +14,8 @@ export const actions: ActionTree<AuthStateI, RootStateI> = {
     }
     context.commit('setToken', payload);
     await context.dispatch('getUserDetails');
-    await context.dispatch('getUserPermissions');
     await context.dispatch('getUserProjects');
+    await context.dispatch('getUserPermissions');
     window.location.href = '/app';
   },
   async getUserDetails(context: ActionContext<AuthStateI, RootStateI>) {
