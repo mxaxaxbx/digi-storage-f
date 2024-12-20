@@ -20,24 +20,14 @@
       <h3 class="text-lg font-bold text-gray-900">Menú</h3>
       <!-- authenticated menu -->
       <ul v-if="isAuth" class="space-y-2 font-medium">
-        <!-- teachers -->
-        <li v-if="validatePermissions('teachers/filter')">
+        <!-- files -->
+        <li v-if="validatePermissions('storage/listfiles')">
           <router-link
-            to="/app/teachers"
+            to="/app/files"
             class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
           >
             <i class="fas fa-chalkboard-teacher w-5 h-5 text-gray-500"></i>
-            <span class="flex-1 ml-3 whitespace-nowrap"> Docentes </span>
-          </router-link>
-        </li>
-        <!-- courses -->
-        <li v-if="validatePermissions('courses/filter')">
-          <router-link
-            to="/app/courses"
-            class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
-          >
-            <i class="fas fa-book w-5 h-5 text-gray-500"></i>
-            <span class="flex-1 ml-3 whitespace-nowrap"> Cursos </span>
+            <span class="flex-1 ml-3 whitespace-nowrap"> Archivos </span>
           </router-link>
         </li>
       </ul>

@@ -26,4 +26,19 @@ export const actions: ActionTree<FilesStateI, RootStateI> = {
     const { data } = await storageClient.get(`/api/storage/listfiles?${params.toString()}`);
     context.commit('setResult', snakeToCamel(data));
   },
+  async upload(
+    context: ActionContext<FilesStateI, RootStateI>,
+    payload: FormData,
+  ): Promise<void> {
+    await storageClient.post(
+      '/api/storage/upload',
+      payload,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      },
+    );
+    context.dispatch('filter', null);
+  },
 };

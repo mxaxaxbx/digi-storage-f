@@ -39,13 +39,17 @@ export const actions: ActionTree<AuthStateI, RootStateI> = {
     const { VUE_APP_DIGI_USERS_F } = process.env;
     window.location.href = `${VUE_APP_DIGI_USERS_F}/auth/login?app=storage`;
   },
-  changeProject(context: ActionContext<AuthStateI, RootStateI>, payload: number) {
+  async changeProject(
+    context: ActionContext<AuthStateI, RootStateI>,
+    payload: number,
+  ): Promise<void> {
     // get current project from getters
     const { projects } = context.getters;
     // find the project with the given id
     const project = projects.find((p: ProjectI) => p.id === payload);
     // set the project
     context.commit('setProject', project);
+    await context.dispatch('getUserPermissions');
     // reload the page
     window.location.reload();
   },

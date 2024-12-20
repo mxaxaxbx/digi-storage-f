@@ -12,21 +12,6 @@ const baseHttpClient = axios.create({
   },
 });
 
-const customPost = async <T = any, D = any>(
-  url: string,
-  data: D | undefined,
-  config: AxiosRequestConfig<D> | undefined,
-): Promise<AxiosResponse<T>> => {
-  const snakeData = camelToSnake(data);
-  const response = await baseHttpClient({
-    method: 'POST',
-    url,
-    data: snakeData,
-    ...config,
-  });
-  return response;
-};
-
 function customErrorHandler(error: any) {
   if (!error.response) {
     console.error('Network error', error);
@@ -82,6 +67,4 @@ baseHttpClient.interceptors.response.use(
   },
 );
 
-export const httpClient = Object.assign(baseHttpClient, {
-  post: customPost,
-});
+export const httpClient = baseHttpClient;
