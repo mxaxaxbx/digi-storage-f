@@ -1,5 +1,46 @@
 <template>
   <!-- actions -->
+  <!-- upload progress bar -->
+  <div v-if="loading" class="mb-4">
+    <div class="relative pt-1">
+      <div class="flex mb-2 items-center justify-between">
+        <div>
+          <span
+            class="
+              text-xs font-semibold uppercase
+              inline-block
+              py-1 px-2
+              rounded-full
+              text-purple-600
+              bg-purple-200
+            "
+          >
+            Subiendo archivo
+          </span>
+          <span class="text-xs font-semibold inline-block text-purple-600">
+            {{ file?.name }}
+          </span>
+        </div>
+        <div class="text-right">
+          <span class="text-xs font-semibold inline-block text-purple-600">
+            {{ Math.round(100 * progress) }}%
+          </span>
+        </div>
+      </div>
+      <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-purple-200">
+        <div
+          :style="{ width: `${Math.round(100 * progress)}%` }"
+          class="
+            shadow-none
+            flex flex-col
+            text-center whitespace-nowrap text-white
+            justify-center
+            bg-purple-500
+          "
+        ></div>
+      </div>
+    </div>
+  </div>
   <div
     class="
       flex justify-between items-center
@@ -24,6 +65,7 @@
           py-2 px-4
           rounded cursor-pointer
         "
+        :class="{ 'opacity-50': loading }"
       >
         <input
           id="fileInput"
@@ -32,6 +74,7 @@
           ref="fileInput"
           @change="uploadFile"
           :multiple="false"
+          :disabled="loading"
         />
         <!-- upload file icon -->
         <i class="fas fa-upload"></i>
@@ -43,12 +86,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
 
 const loading = ref(false);
+const file = ref<File | null>(null);
+
+const progress = computed<number>(() => store.state.files.uploadProgress);
 
 async function uploadFile(ev: Event): Promise<void> {
   loading.value = true;
@@ -58,12 +104,9 @@ async function uploadFile(ev: Event): Promise<void> {
       return;
     }
 
-    const file = target.files[0];
-    console.log('file', file);
+    [file.value] = target.files;
     const formData = new FormData();
-    formData.append('file', file);
-
-    console.log('formData', formData.get('file'));
+    formData.append('file', file.value);
 
     await store.dispatch('files/upload', formData);
     store.commit('notifications/addNotification', {

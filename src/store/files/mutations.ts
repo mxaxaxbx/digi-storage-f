@@ -7,7 +7,9 @@ import {
 
 export const mutations: MutationTree<FilesStateI> = {
   setResult(state: FilesStateI, payload: FilesResultI) {
-    console.log('mutation setResult', payload);
     state.result = payload;
+  },
+  setUploadProgress(state: FilesStateI, payload: number) {
+    state.uploadProgress = payload;
   },
 };

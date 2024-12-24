@@ -8,6 +8,7 @@ export interface FilesResultI {
 
 export interface FilesStateI {
   result: FilesResultI;
+  uploadProgress: number;
 }
 
 export const state: FilesStateI = {
@@ -18,4 +19,5 @@ export const state: FilesStateI = {
     total: 0,
     totalPages: 0,
   },
+  uploadProgress: 0,
 };

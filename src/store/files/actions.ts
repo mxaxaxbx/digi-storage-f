@@ -1,4 +1,5 @@
 import { ActionTree, ActionContext } from 'vuex';
+import { AxiosProgressEvent } from 'axios';
 
 import { storageClient } from '@/http-client';
 import { camelToSnake, snakeToCamel } from '@/utils';
@@ -30,15 +31,24 @@ export const actions: ActionTree<FilesStateI, RootStateI> = {
     context: ActionContext<FilesStateI, RootStateI>,
     payload: FormData,
   ): Promise<void> {
-    await storageClient.post(
+    storageClient.post(
       '/api/storage/upload',
       payload,
       {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        onUploadProgress: (progressEvent: AxiosProgressEvent) => {
+          // eslint-disable-next-line no-unsafe-optional-chaining
+          const progress = progressEvent.total
+            ? Math.round((progressEvent.loaded) / progressEvent.total)
+            : 0;
+          context.commit('setUploadProgress', progress);
+        },
       },
     );
+    // eslint-disable-next-line no-promise-executor-return
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     context.dispatch('filter', null);
   },
 };
