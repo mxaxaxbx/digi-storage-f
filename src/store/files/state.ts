@@ -1,5 +1,17 @@
+export interface FileI {
+  id: string;
+  contentType: string;
+  createdAt: number;
+  name: string;
+  size: number;
+  status: string;
+  updatedAt: number;
+  url: string;
+  userId: string;
+}
+
 export interface FilesResultI {
-  data: any[];
+  data: FileI[];
   page: number;
   perPage: number;
   total: number;

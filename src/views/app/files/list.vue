@@ -34,27 +34,67 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <!-- results -->
         <div
-          v-for="course in results.data"
-          :key="course.id"
+          v-for="file in results.data"
+          :key="file.id"
           class="border border-gray-200 rounded-lg p-4"
         >
           <div class="flex items center justify-between">
-            <div class="flex items center">
-              <div class="w-full">
-                <router-link
-                  :to="`/app/courses/${course.title}-${course.id}`"
-                  class="text-lg font-semibold text-gray-800"
-                >
-                  {{ course.title }}
-                </router-link><br/>
-                <!-- strip text -->
-                <router-link
-                  :to="`/app/courses/${course.title}-${course.id}-`"
-                  class="text-sm text-gray-400"
-                >
-                  {{ truncateHTML(course.description, 100) }}
-                </router-link>
-              </div>
+            <div class="flex items-center space-x-2">
+              <!-- icons -->
+              <i
+                v-if="file.contentType === 'application/pdf'"
+                class="fas fa-file-pdf text-red-500 text-2xl"
+              ></i>
+              <i
+                v-else-if="file.contentType === 'application/msword'"
+                class="fas fa-file-word text-blue-500 text-2xl"
+              ></i>
+              <i
+                v-else-if="file.contentType === 'image/png'"
+                class="fas fa-file-image text-green-500 text-2xl"
+              ></i>
+              <i
+                v-else-if="file.contentType === 'image/jpeg'"
+                class="fas fa-file-image text-green-500 text-2xl"
+              ></i>
+              <i
+                v-else-if="file.contentType === 'image/jpg'"
+                class="fas fa-file-image text-green-500 text-2xl"
+              ></i>
+              <i
+                v-else-if="file.contentType === 'video/mp4'"
+                class="fas fa-file-video text-red-500 text-2xl"
+              ></i>
+              <i
+                v-else-if="file.contentType === 'application/zip'"
+                class="fas fa-file-archive text-yellow-500 text-2xl"
+              ></i>
+              <i
+                v-else-if="file.contentType === 'audio/mpeg'"
+                class="fas fa-file-audio text-yellow-500 text-2xl"
+              ></i>
+              <i v-else class="fas fa-file text-gray-500 text-2xl"></i>
+              <!-- title -->
+              <h3 class="font-bold text-lg">{{ file.name }}</h3>
+            </div>
+            <div>
+              <!-- status -->
+              <i
+                v-if="file.status === 'pending'"
+                class="fas fa-clock text-yellow-500 text-lg"
+              ></i>
+              <i
+                v-else-if="file.status === 'processing'"
+                class="fas fa-sync-alt text-blue-500 text-lg"
+              ></i>
+              <i
+                v-else-if="file.status === 'saving'"
+                class="fas fa-save text-green-500 text-lg"
+              ></i>
+              <i
+                v-else-if="file.status === 'uploaded'"
+                class="fas fa-check text-green-500 text-lg"
+              ></i>
             </div>
           </div>
         </div>
@@ -145,14 +185,14 @@ function getPaginatedLink(action: string, page?: number) {
   const query = route.query.query || '';
   switch (action) {
     case 'previous':
-      return `/app/courses?page=${Math.max(1, Number(find.value.page) - 1)}&query=${query}`;
+      return `/app/files?page=${Math.max(1, Number(find.value.page) - 1)}&query=${query}`;
     case 'next':
-      return `/app/courses?page=${Math.min(
+      return `/app/files?page=${Math.min(
         results.value.totalPages,
         Number(find.value.page) + 1,
       )}&query=${query}`;
     default:
-      return `/app/courses?page=${page}&query=${query}`;
+      return `/app/files?page=${page}&query=${query}`;
   }
 }
 
