@@ -5,7 +5,7 @@ import { storageClient } from '@/http-client';
 import { camelToSnake, snakeToCamel } from '@/utils';
 
 import { RootStateI, PaginationI } from '../state';
-import { FilesStateI } from './state';
+import { FileI, FilesStateI } from './state';
 
 export const actions: ActionTree<FilesStateI, RootStateI> = {
   async filter(
@@ -50,5 +50,20 @@ export const actions: ActionTree<FilesStateI, RootStateI> = {
     // eslint-disable-next-line no-promise-executor-return
     await new Promise((resolve) => setTimeout(resolve, 1000));
     context.dispatch('filter', null);
+  },
+  async download(
+    context: ActionContext<FilesStateI, RootStateI>,
+    payload: FileI,
+  ): Promise<void> {
+    const { data } = await storageClient.get(
+      `/api/storage/getfile/${payload.id}`,
+      { responseType: 'blob' },
+    );
+    const url = window.URL.createObjectURL(new Blob([data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', payload.name);
+    document.body.appendChild(link);
+    link.click();
   },
 };

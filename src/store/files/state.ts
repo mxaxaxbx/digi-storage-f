@@ -8,6 +8,7 @@ export interface FileI {
   updatedAt: number;
   url: string;
   userId: string;
+  loading?: boolean;
 }
 
 export interface FilesResultI {

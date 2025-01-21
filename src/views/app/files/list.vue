@@ -33,9 +33,10 @@
       <!-- results -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <!-- results -->
-        <div
+        <button
           v-for="file in results.data"
           :key="file.id"
+          @click="downloadFile(file)"
           class="border border-gray-200 rounded-lg p-4"
         >
           <div class="flex items center justify-between">
@@ -75,6 +76,11 @@
               ></i>
               <i v-else class="fas fa-file text-gray-500 text-2xl"></i>
               <!-- title -->
+              <!-- loading icon -->
+              <i
+                v-if="file.loading"
+                class="fas fa-spinner fa-spin text-2xl text-gray-500"
+              ></i>
               <h3 class="font-bold text-lg">{{ file.name }}</h3>
             </div>
             <div>
@@ -97,7 +103,7 @@
               ></i>
             </div>
           </div>
-        </div>
+        </button>
       </div>
       <!-- pages if data -->
       <div
@@ -148,7 +154,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
 import { PaginationI } from '@/store/state';
-import { FilesResultI } from '@/store/files/state';
+import { FileI, FilesResultI } from '@/store/files/state';
 
 const store = useStore();
 const route = useRoute();
@@ -213,13 +219,21 @@ function search(ev: KeyboardEvent) {
   }, 1000);
 }
 
-function truncateHTML(html: string, maxLength: number) {
-  const div = document.createElement('div');
-  div.innerHTML = html;
-  const textContent = div.textContent || div.innerText || '';
-  return textContent.length > maxLength
-    ? `${textContent.substring(0, maxLength)}...`
-    : textContent;
+async function downloadFile(file: FileI) {
+  // eslint-disable-next-line no-param-reassign
+  file.loading = true;
+  try {
+    await store.dispatch('files/download', file);
+  } catch (err: any) {
+    const msg = err.response.data.error || 'Error al descargar el archivo';
+    store.commit('notifications/addNotification', {
+      message: msg,
+      type: 'error',
+    });
+  } finally {
+    // eslint-disable-next-line no-param-reassign
+    file.loading = false;
+  }
 }
 
 onMounted(() => {
